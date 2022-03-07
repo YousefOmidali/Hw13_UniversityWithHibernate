@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.Set;
 
 
-
 @org.hibernate.annotations.NamedQueries({
         @org.hibernate.annotations.NamedQuery(
                 name = "findAll",
@@ -24,6 +23,7 @@ import java.util.Set;
 public class Student extends Person {
     @Column(unique = true)
     private Long studentNumber;
+    private Boolean isExcellent;
 
     @ManyToMany
     @JoinTable(
@@ -36,12 +36,13 @@ public class Student extends Person {
     @Override
     public String toString() {
         return "Student{" +
-                " id=" + getId() +
-                ", fullName=" + getFullName() +
-                ", studentNumber=" + studentNumber +
-                ", username=" + getUserName() +
-                ", password=" + getPassword() +
-                ", courseAndScoreSet=" + courseAndScoreSet +
+                " id= " + getId() +
+                ", fullName= " + getFullName() +
+                ", studentNumber= " + studentNumber +
+                ", username= " + getUserName() +
+                ", password= " + getPassword() +
+                ", courseAndScoreSet= " + courseAndScoreSet +
+                ", isExcellent= " + isExcellent +
                 '}';
     }
 }
