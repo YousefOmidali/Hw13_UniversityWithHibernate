@@ -11,7 +11,7 @@ public class MasterService {
         masterRepository.save(master);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         masterRepository.findById(id);
     }
 
@@ -19,11 +19,11 @@ public class MasterService {
         masterRepository.update(master);
     }
 
-    public void findById(Integer id) {
-        masterRepository.findById(id);
+    public Master findById(Long id) {
+        return masterRepository.findById(id);
     }
 
-    public void FindAll() {
+    public void findAll() {
         masterRepository.findAll();
     }
     public Master login(String username,String password) {

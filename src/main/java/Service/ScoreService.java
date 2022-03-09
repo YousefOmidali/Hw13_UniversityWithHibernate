@@ -11,7 +11,7 @@ public class ScoreService {
         scoreRepository.save(score);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         scoreRepository.findById(id);
     }
 
@@ -19,11 +19,11 @@ public class ScoreService {
         scoreRepository.update(score);
     }
 
-    public void findById(Integer id) {
+    public void findById(Long id) {
         scoreRepository.findById(id);
     }
 
-    public void FindAll() {
+    public void findAll() {
         scoreRepository.findAll();
     }
 }

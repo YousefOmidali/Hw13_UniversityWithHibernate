@@ -4,21 +4,22 @@ import lombok.*;
 
 import javax.persistence.*;
 
-
+/*
 @org.hibernate.annotations.NamedQueries({
         @org.hibernate.annotations.NamedQuery(
                 name = "findAll",
                 query = "FROM Entity.Employee"
         )
 })
+*/
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+//@ToString
 @Entity
-public class Employee extends Person{
+public class Employee extends Person {
     @Column(unique = true)
     private Long nationalCode;
     private Long salary;

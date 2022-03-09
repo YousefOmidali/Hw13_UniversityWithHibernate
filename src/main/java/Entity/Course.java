@@ -3,15 +3,16 @@ package Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-
+/*
 @org.hibernate.annotations.NamedQueries({
         @org.hibernate.annotations.NamedQuery(
                 name = "findAll",
                 query = "FROM Entity.Course"
         )
 })
-
+*/
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,7 +27,6 @@ public class Course {
     private String courseName;
     private Integer unit;
 
-
     @ManyToOne
     private Master master;
 
@@ -36,6 +36,11 @@ public class Course {
     @ManyToOne
     private Student student;
 
+    public Course(String courseName, Integer unit, Master master) {
+        this.courseName = courseName;
+        this.unit = unit;
+        this.master = master;
+    }
 
 
 }

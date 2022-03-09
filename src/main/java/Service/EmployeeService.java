@@ -10,7 +10,7 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         employeeRepository.findById(id);
     }
 
@@ -18,11 +18,11 @@ public class EmployeeService {
         employeeRepository.update(employee);
     }
 
-    public void findById(Integer id) {
+    public void findById(Long id) {
         employeeRepository.findById(id);
     }
 
-    public void FindAll() {
+    public void findAll() {
         employeeRepository.findAll();
     }
 

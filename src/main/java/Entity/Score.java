@@ -4,6 +4,14 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/*
+@org.hibernate.annotations.NamedQueries({
+        @org.hibernate.annotations.NamedQuery(
+                name = "findAll",
+                query = "FROM Entity.Student"
+        )
+})
+*/
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

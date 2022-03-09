@@ -11,7 +11,7 @@ public class StudentService {
         studentRepository.save(student);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         studentRepository.findById(id);
     }
 
@@ -19,15 +19,15 @@ public class StudentService {
         studentRepository.update(student);
     }
 
-    public void findById(Integer id) {
+    public void findById(Long id) {
         studentRepository.findById(id);
     }
 
-    public void FindAll() {
+    public void findAll() {
         studentRepository.findAll();
     }
 
-    public void status(Integer id) {
+    public void status(Long id) {
         studentRepository.status(id);
     }
 

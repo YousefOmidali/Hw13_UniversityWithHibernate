@@ -8,7 +8,7 @@ import org.hibernate.SessionFactory;
 public class StudentRepository extends GenericRepositoryImpl<Student, Long> {
     private SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
 
-    public void findById(Integer id) {
+    public void findById(Long id) {
         try (var session = sessionFactory.openSession()) {
             session.beginTransaction();
 
@@ -18,14 +18,21 @@ public class StudentRepository extends GenericRepositoryImpl<Student, Long> {
         }
     }
 
+    //    public void findAll() {
+//        try (var session = sessionFactory.openSession()) {
+//            var query = session.createNamedQuery("findAll", Student.class);
+//            query.getResultStream().forEach(System.out::println);
+//        }
+//    }
     public void findAll() {
-        try (var session = sessionFactory.openSession()) {
-            var query = session.createNamedQuery("findAll", Student.class);
-            query.getResultStream().forEach(System.out::println);
-        }
+        var session = sessionFactory.openSession();
+        String hql = " FROM Entity.Student c";
+        var query = session.createQuery(hql, String.class);
+        query.getResultStream().forEach(System.out::println);
     }
 
-    public void status(Integer id) {
+
+    public void status(Long id) {
         try (var session = sessionFactory.openSession()) {
             session.beginTransaction();
             var student = session.find(Student.class, id);
@@ -35,6 +42,7 @@ public class StudentRepository extends GenericRepositoryImpl<Student, Long> {
             session.getTransaction().commit();
         }
     }
+
     public Student login(String username, String password) {
         var session = sessionFactory.openSession();
         String hql = " FROM Entity.Student s " +

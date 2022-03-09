@@ -5,14 +5,14 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-
+/*
 @org.hibernate.annotations.NamedQueries({
         @org.hibernate.annotations.NamedQuery(
                 name = "findAll",
                 query = "FROM Entity.Master"
         )
 })
-
+*/
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,7 +32,8 @@ public class Master extends Person {
     private List<Address> addresses;
     // ManyToOne*/
 
-    public Master(String userName, String password, String fullName,MasterLevel masterLevel, Integer numberOfLessonTeach, Long salary, List<Course> courseList) {
+    public Master(String userName, String password, String fullName,MasterLevel masterLevel,
+                  Integer numberOfLessonTeach, Long salary, List<Course> courseList) {
         super(userName, password, fullName);
         this.masterLevel = masterLevel;
         this.numberOfLessonTeach = numberOfLessonTeach;
@@ -40,7 +41,8 @@ public class Master extends Person {
         this.courseList = courseList;
     }
 
-    public Master(Long id, String userName, String password, String fullName, MasterLevel masterLevel, Integer numberOfLessonTeach, Long salary, List<Course> courseList) {
+    public Master(Long id, String userName, String password, String fullName,
+                  MasterLevel masterLevel, Integer numberOfLessonTeach, Long salary, List<Course> courseList) {
         super(id, userName, password, fullName);
         this.masterLevel = masterLevel;
         this.numberOfLessonTeach = numberOfLessonTeach;
@@ -50,6 +52,13 @@ public class Master extends Person {
 
     public Master(String userName, String password, String fullName, MasterLevel masterLevel, Integer numberOfLessonTeach, Long salary) {
         super(userName, password, fullName);
+        this.masterLevel = masterLevel;
+        this.numberOfLessonTeach = numberOfLessonTeach;
+        this.salary = salary;
+    }
+
+    public Master(Long id, String userName, String password, String fullName, MasterLevel masterLevel, Integer numberOfLessonTeach, Long salary) {
+        super(id, userName, password, fullName);
         this.masterLevel = masterLevel;
         this.numberOfLessonTeach = numberOfLessonTeach;
         this.salary = salary;

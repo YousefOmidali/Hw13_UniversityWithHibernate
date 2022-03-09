@@ -4,16 +4,15 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
-
+/*
 @org.hibernate.annotations.NamedQueries({
         @org.hibernate.annotations.NamedQuery(
                 name = "findAll",
                 query = "FROM Entity.Student"
         )
 })
-
+*/
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -49,6 +48,12 @@ public class Student extends Person {
         this.studentNumber = studentNumber;
         this.isExcellent = isExcellent;
         this.courseList = courseList;
+    }
+
+    public Student(Long id, String userName, String password, String fullName, Long studentNumber, Boolean isExcellent) {
+        super(id, userName, password, fullName);
+        this.studentNumber = studentNumber;
+        this.isExcellent = isExcellent;
     }
 
     @Override
