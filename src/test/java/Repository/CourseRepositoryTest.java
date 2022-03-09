@@ -1,6 +1,7 @@
 package Repository;
 
 import Entity.Course;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,12 +18,22 @@ class CourseRepositoryTest {
     public void beforeEach() throws SQLException {
         courseRepository = new CourseRepository();
     }
+
     @AfterAll
     static void afterAll() throws SQLException {
         var sessionFactory = SessionFactoryConnection.getInstance();
-        sessionFactory.getCurrentSession().createQuery("delete from Entity.Course")
-                .executeUpdate();
+        try (var session = sessionFactory.openSession()) {
+            var transaction = session.beginTransaction();
+            try {
+                session.createQuery("DELETE FROM Entity.Course").executeUpdate();
+                transaction.commit();
+            } catch (Exception e) {
+                transaction.rollback();
+                throw e;
+            }
+        }
     }
+
     @Test
     public void insertTest() throws SQLException {
         // Arrange -->
@@ -38,6 +49,7 @@ class CourseRepositoryTest {
         );
 
     }
+
     @Test
     public void delete() throws SQLException {
         // Arrange -->
@@ -62,8 +74,9 @@ class CourseRepositoryTest {
         courseRepository.update(course);
 
         // Assert
-        assertEquals("Test2",courseRepository.findById(course.getId()).getCourseName());
+        assertEquals("Test2", courseRepository.findById(course.getId()).getCourseName());
     }
+
     @Test
     public void findId() throws SQLException {
         // Arrange -->
@@ -73,6 +86,6 @@ class CourseRepositoryTest {
         courseRepository.save(course);
 
         // Assert
-        assertEquals(course.getCourseName(),courseRepository.findById(course.getId()).getCourseName());
+        assertEquals(course.getCourseName(), courseRepository.findById(course.getId()).getCourseName());
     }
 }
