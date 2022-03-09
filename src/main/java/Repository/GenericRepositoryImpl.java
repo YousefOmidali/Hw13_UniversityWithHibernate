@@ -1,12 +1,12 @@
 package Repository;
 
 import org.hibernate.SessionFactory;
-import SessionFactory.SessionFactorySingleton;
+
 
 
 public class GenericRepositoryImpl<T, ID> implements GenericRepository<T, ID> {
 
-    protected SessionFactory sessionFactory = SessionFactorySingleton.getInstance();
+    protected SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
 
     @Override
     public T save(T t) {

@@ -1,13 +1,12 @@
 package Repository;
 
-import Entity.Employee;
+import Entity.Master;
 import Entity.Student;
 import org.hibernate.SessionFactory;
-import SessionFactory.SessionFactorySingleton;
 
 
 public class StudentRepository extends GenericRepositoryImpl<Student, Long> {
-    private SessionFactory sessionFactory = SessionFactorySingleton.getInstance();
+    private SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
 
     public void findById(Integer id) {
         try (var session = sessionFactory.openSession()) {
@@ -35,5 +34,15 @@ public class StudentRepository extends GenericRepositoryImpl<Student, Long> {
             } else System.out.println("you cant pick more than 20 unit! ");
             session.getTransaction().commit();
         }
+    }
+    public Student login(String username, String password) {
+        var session = sessionFactory.openSession();
+        String hql = " FROM Entity.Student s " +
+                " WHERE s.userName = :username " +
+                " AND s.password = :password ";
+        var query = session.createQuery(hql, Student.class);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        return query.getSingleResult();
     }
 }

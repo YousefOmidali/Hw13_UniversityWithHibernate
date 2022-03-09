@@ -1,18 +1,16 @@
 package Repository;
 
-import Entity.CourseAndScore;
-import Entity.Student;
+import Entity.Course;
 import org.hibernate.SessionFactory;
-import SessionFactory.SessionFactorySingleton;
 
 
-public class CourseAndScoreRepository extends GenericRepositoryImpl<CourseAndScore, Long> {
-    private SessionFactory sessionFactory = SessionFactorySingleton.getInstance();
+public class CourseRepository extends GenericRepositoryImpl<Course, Long> {
+    private SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
 
     public void findById(Integer id) {
         try (var session = sessionFactory.openSession()) {
             session.beginTransaction();
-            var a = session.find(CourseAndScore.class, id);
+            var a = session.find(Course.class, id);
             System.out.println(a);
             session.getTransaction().commit();
         }
@@ -20,7 +18,7 @@ public class CourseAndScoreRepository extends GenericRepositoryImpl<CourseAndSco
 
     public void findAll() {
         try (var session = sessionFactory.openSession()) {
-            var query = session.createNamedQuery("findAll", CourseAndScore.class);
+            var query = session.createNamedQuery("findAll", Course.class);
             query.getResultStream().forEach(System.out::println);
         }
     }

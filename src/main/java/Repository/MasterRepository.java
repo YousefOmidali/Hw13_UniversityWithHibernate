@@ -1,10 +1,11 @@
 package Repository;
+
+import Entity.Employee;
 import Entity.Master;
-import SessionFactory.SessionFactorySingleton;
 import org.hibernate.SessionFactory;
 
-public class MasterRepository extends GenericRepositoryImpl<MasterRepository,Long>{
-    private SessionFactory sessionFactory = SessionFactorySingleton.getInstance();
+public class MasterRepository extends GenericRepositoryImpl<Master, Long> {
+    private SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
 
     public void findById(Integer id) {
         try (var session = sessionFactory.openSession()) {
@@ -16,10 +17,20 @@ public class MasterRepository extends GenericRepositoryImpl<MasterRepository,Lon
     }
 
     public void findAll() {
-        try(var session = sessionFactory.openSession()){
+        try (var session = sessionFactory.openSession()) {
             var query = session.createNamedQuery("findAll", Master.class);
             query.getResultStream().forEach(System.out::println);
         }
+    }
 
+    public Master login(String username, String password) {
+        var session = sessionFactory.openSession();
+        String hql = " FROM Entity.Master m " +
+                " WHERE m.userName = :username " +
+                " AND m.password = :password ";
+        var query = session.createQuery(hql, Master.class);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        return query.getSingleResult();
     }
 }

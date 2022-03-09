@@ -3,6 +3,7 @@ package Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 
@@ -25,13 +26,30 @@ public class Student extends Person {
     private Long studentNumber;
     private Boolean isExcellent;
 
-    @ManyToMany
-    @JoinTable(
-            name = "student_course",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "courseandscore_id")
-    )
-    private Set<CourseAndScore> courseAndScoreSet;
+    @OneToMany(mappedBy = "student")
+    private List<Course> courseList;
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "student_course",
+//            joinColumns = @JoinColumn(name = "student_id"),
+//            inverseJoinColumns = @JoinColumn(name = "courseandscore_id"))
+//    private Set<Course> courseAndScoreSet;
+
+
+    public Student(String userName, String password, String fullName, Long studentNumber, Boolean isExcellent) {
+        super(userName, password, fullName);
+        this.studentNumber = studentNumber;
+        this.isExcellent = isExcellent;
+    }
+
+    public Student(String userName, String password, String fullName, Long studentNumber,
+                   Boolean isExcellent, List<Course> courseList) {
+        super(userName, password, fullName);
+        this.studentNumber = studentNumber;
+        this.isExcellent = isExcellent;
+        this.courseList = courseList;
+    }
 
     @Override
     public String toString() {
@@ -41,7 +59,7 @@ public class Student extends Person {
                 ", studentNumber= " + studentNumber +
                 ", username= " + getUserName() +
                 ", password= " + getPassword() +
-                ", courseAndScoreSet= " + courseAndScoreSet +
+                ", courseList= " + courseList +
                 ", isExcellent= " + isExcellent +
                 '}';
     }
