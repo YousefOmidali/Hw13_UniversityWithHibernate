@@ -1,7 +1,10 @@
 package Repository;
 
 import Entity.Score;
+import Entity.Student;
 import org.hibernate.SessionFactory;
+
+import java.util.List;
 
 public class ScoreRepository extends GenericRepositoryImpl {
     private SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
@@ -21,11 +24,13 @@ public class ScoreRepository extends GenericRepositoryImpl {
 //            query.getResultStream().forEach(System.out::println);
 //        }
 //    }
-    public void findAll() {
-        var session = sessionFactory.openSession();
-        String hql = " FROM Entity.Score s";
-        var query = session.createQuery(hql, Score.class);
-        query.getResultStream().forEach(System.out::println);
+    public List<Score> findAll(Long studentId ) {
+        try (var session = sessionFactory.openSession()){
+            String hql = "  FROM Entity.Score s WHERE s.student.id = :student_id ";
+            var query = session.createQuery(hql, Score.class);
+            query.setParameter("student_id",studentId);
+            return query.getResultList();
+        }
     }
 
 }

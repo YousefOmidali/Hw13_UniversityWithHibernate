@@ -28,7 +28,7 @@ public class StudentRepository extends GenericRepositoryImpl<Student, Long> {
         var session = sessionFactory.openSession();
         String hql = " FROM Entity.Student c";
         var query = session.createQuery(hql, String.class);
-        query.getResultStream().forEach(System.out::println);
+        query.getResultList().forEach(System.out::println);
     }
 
 

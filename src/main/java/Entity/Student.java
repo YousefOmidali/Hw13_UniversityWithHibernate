@@ -3,30 +3,19 @@ package Entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
-
-/*
-@org.hibernate.annotations.NamedQueries({
-        @org.hibernate.annotations.NamedQuery(
-                name = "findAll",
-                query = "FROM Entity.Student"
-        )
-})
-*/
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 public class Student extends Person {
     @Column(unique = true)
     private Long studentNumber;
     private Boolean isExcellent;
 
-    @OneToMany(mappedBy = "student")
-    private List<Course> courseList;
+//    @OneToMany(mappedBy = "student")
+//    private List<Course> courseList;
 
 //    @ManyToMany
 //    @JoinTable(
@@ -40,14 +29,6 @@ public class Student extends Person {
         super(userName, password, fullName);
         this.studentNumber = studentNumber;
         this.isExcellent = isExcellent;
-    }
-
-    public Student(String userName, String password, String fullName, Long studentNumber,
-                   Boolean isExcellent, List<Course> courseList) {
-        super(userName, password, fullName);
-        this.studentNumber = studentNumber;
-        this.isExcellent = isExcellent;
-        this.courseList = courseList;
     }
 
     public Student(Long id, String userName, String password, String fullName, Long studentNumber, Boolean isExcellent) {
@@ -64,7 +45,7 @@ public class Student extends Person {
                 ", studentNumber= " + studentNumber +
                 ", username= " + getUserName() +
                 ", password= " + getPassword() +
-                ", courseList= " + courseList +
+                //               ", courseList= " + courseList +
                 ", isExcellent= " + isExcellent +
                 '}';
     }

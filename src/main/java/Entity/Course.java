@@ -3,8 +3,7 @@ package Entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 /*
 @org.hibernate.annotations.NamedQueries({
         @org.hibernate.annotations.NamedQuery(
@@ -30,11 +29,11 @@ public class Course {
     @ManyToOne
     private Master master;
 
-    @OneToMany(mappedBy = "course")
-    private List<Score> scoreList;
-
-    @ManyToOne
-    private Student student;
+//    @OneToMany(mappedBy = "course")
+//    private Set<Score> scoreList;
+//
+//   @ManyToOne
+//   private Student student;
 
     public Course(String courseName, Integer unit, Master master) {
         this.courseName = courseName;

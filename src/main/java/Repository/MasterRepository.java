@@ -27,7 +27,7 @@ public class MasterRepository extends GenericRepositoryImpl<Master, Long> {
         var session = sessionFactory.openSession();
         String hql = " FROM Entity.Master m";
         var query = session.createQuery(hql, Master.class);
-        query.getResultStream().forEach(System.out::println);
+        query.getResultList().forEach(System.out::println);
     }
 
 

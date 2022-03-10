@@ -4,6 +4,8 @@ import Entity.Course;
 import Entity.Score;
 import Repository.ScoreRepository;
 
+import java.util.List;
+
 public class ScoreService {
     private ScoreRepository scoreRepository = new ScoreRepository();
 
@@ -23,7 +25,7 @@ public class ScoreService {
         scoreRepository.findById(id);
     }
 
-    public void findAll() {
-        scoreRepository.findAll();
+    public List<Score> findAll(Long student_id) {
+       return scoreRepository.findAll(student_id);
     }
 }

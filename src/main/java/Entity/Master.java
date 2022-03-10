@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /*
 @org.hibernate.annotations.NamedQueries({
@@ -27,27 +28,27 @@ public class Master extends Person {
     private Long salary;
 
     @OneToMany(mappedBy = "master")
-    private List<Course> courseList;
+    private Set<Course> courseSet;
     /*@OneToMany(mappedBy = "person")
     private List<Address> addresses;
     // ManyToOne*/
 
     public Master(String userName, String password, String fullName,MasterLevel masterLevel,
-                  Integer numberOfLessonTeach, Long salary, List<Course> courseList) {
+                  Integer numberOfLessonTeach, Long salary, Set<Course> courseSet) {
         super(userName, password, fullName);
         this.masterLevel = masterLevel;
         this.numberOfLessonTeach = numberOfLessonTeach;
         this.salary = salary;
-        this.courseList = courseList;
+        this.courseSet = courseSet;
     }
 
     public Master(Long id, String userName, String password, String fullName,
-                  MasterLevel masterLevel, Integer numberOfLessonTeach, Long salary, List<Course> courseList) {
+                  MasterLevel masterLevel, Integer numberOfLessonTeach, Long salary, Set<Course> courseSet) {
         super(id, userName, password, fullName);
         this.masterLevel = masterLevel;
         this.numberOfLessonTeach = numberOfLessonTeach;
         this.salary = salary;
-        this.courseList = courseList;
+        this.courseSet = courseSet;
     }
 
     public Master(String userName, String password, String fullName, MasterLevel masterLevel, Integer numberOfLessonTeach, Long salary) {

@@ -4,9 +4,7 @@ import Entity.*;
 import Repository.SessionFactoryConnection;
 import Service.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class main {
     public static void main(String[] args) {
@@ -42,7 +40,7 @@ public class main {
         Boolean isExcellent = false;
         Boolean loop = true;
 
-        employeeService.findAll();
+        //courseService.findAll();
 
         System.out.println("1.SignUp \n2.Login");
         loginMenu = scanner.nextInt();
@@ -73,7 +71,7 @@ public class main {
                 fullName = scanner.nextLine();
                 System.out.println("enter your studentNumber:");
                 studentNumber = scanner.nextLong();
-                student = new Student(username, password, fullName, studentNumber, isExcellent, new ArrayList<>());
+                student = new Student(username, password, fullName, studentNumber, isExcellent);
                 studentService.save(student);
                 System.out.println("done! ");
 
@@ -87,7 +85,7 @@ public class main {
                 fullName = scanner.nextLine();
                 System.out.println("enter your studentNumber:");
                 master = new Master(username, password, fullName, MasterLevel.HAGHOTADRIS,
-                        0, 7000000L, new ArrayList<>());
+                        0, 7000000L, new HashSet<Course>());
                 masterService.save(master);
                 System.out.println("done!");
             } else
@@ -104,11 +102,11 @@ public class main {
                 password = scanner.nextLine();
                 employee = employeeService.login(username, password);
                 if (employee != null) {
-
-                    System.out.println("\t****EmployeeMenu**** \n1.delete student\n2.edit student \n3.delete master" +
-                            "\n4.update master\n5.delete employee\n6.edit master\n7.add an course\n8.edit course \n9.delete course \n10.Exit");
-                    employeeMenu = scanner.nextInt();
                     while (loop) {
+                        System.out.println("\t****EmployeeMenu**** \n1.delete student\n2.edit student \n3.delete master" +
+                                "\n4.update master\n5.delete employee\n6.edit master\n7.add an course\n8.edit course \n9.delete course \n10.Exit");
+                        employeeMenu = scanner.nextInt();
+
                         switch (employeeMenu) {     //EmployeeMenu
                             case 1:
                                 System.out.println("enter student id");
@@ -196,7 +194,7 @@ public class main {
                                 System.out.println("enter master id:");
                                 id = scanner.nextLong();
                                 master = masterService.findById(id);
-                                course = new Course(null, courseName, unit, master, new ArrayList<>(),null);
+                                course = new Course(courseName,unit,master);
                                 courseService.save(course);
                                 break;
                             case 8:
@@ -233,10 +231,11 @@ public class main {
                 password = scanner.nextLine();
                 student = studentService.login(username, password);
                 if (student != null) {
-                    System.out.println("\t****StudentMenu**** \n1.show Self info\n2.show all courses \n3.pick a course" +
-                            "\n4.update \n5.Exit");
-                    studentMenu = scanner.nextInt();
                     while (loop) {
+                        System.out.println("\t****StudentMenu**** \n1.show Self info\n2.show all courses \n3.pick a course" +
+                                "\n4.pickedCourses \n5.Exit");
+                        studentMenu = scanner.nextInt();
+
                         switch (studentMenu) {     //StudentMenu
                             case 1:
                                 System.out.println(student);
@@ -245,14 +244,27 @@ public class main {
                                 courseService.findAll();
                                 break;
                             case 3:
+                                scanner.nextLine();
+                                System.out.println("enter master id: ");
+                                Long masterId = scanner.nextLong();
+                                master = masterService.findById(masterId);
+                                master.setUserName("******");
+                                master.setPassword("******");
+                                master.setSalary(0L);
                                 System.out.println("enter course id:");
-                                Integer idWithInt = 0;
+                                Integer idWithInt = scanner.nextInt();
                                 course = courseService.findById(idWithInt);
-                                if (!(student.getCourseList().contains(course)))
-                                    student.getCourseList().add(course);
+                                List<Score> scoreList = new ArrayList<>();
+                                Student finalStudent = student;
+                                scoreList.forEach(score1 -> scoreService.findAll(finalStudent.getId()).add(score1));
+                                System.out.println(course);
+                                if (!(scoreList.contains(course))) {
+                                    score = new Score(null,null,course,master,student);
+                                    scoreService.save(score);
+                                } else throw new RuntimeException("Already picked! ");
                                 break;
                             case 4:
-                                student.getCourseList().stream().forEach(System.out::println);
+                                System.out.println(scoreService.findAll(student.getId()));
                                 break;
                             case 5:
                                 loop = false;
@@ -268,10 +280,11 @@ public class main {
                 password = scanner.nextLine();
                 master = masterService.login(username, password);
                 if (master != null) {
-                    System.out.println("\t****MasterMenu**** \n1.show Self info\n2.show all courses \n3.pick a course" +
-                            "\n4.update ");
-                    masterMenu = scanner.nextInt();
                     while (loop) {
+                        System.out.println("\t****MasterMenu**** \n1.show Self info\n2.show all courses \n3.pick a course" +
+                                "\n4.update ");
+                        masterMenu = scanner.nextInt();
+
                         switch (masterMenu) {     //MasterMenu
                             case 1:
                                 System.out.println(master);

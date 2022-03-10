@@ -27,4 +27,10 @@ public class Score {
     @ManyToOne
     private Course course;
 
+    @ManyToOne
+    private Master master;
+
+    @ManyToOne
+    private Student student;
+
 }
