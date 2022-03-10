@@ -37,6 +37,7 @@ public class main {
         Long salary = 1L;
         Long studentNumber;
         Integer unit;
+        Integer masterLevel;
         Boolean isExcellent = false;
         Boolean loop = true;
 
@@ -171,19 +172,26 @@ public class main {
                                 scanner.nextLine();
                                 System.out.println("enter master id");
                                 id = scanner.nextLong();
-                                master = masterService.findById(id);
                                 System.out.println("enter your username:");
                                 username = scanner.nextLine();
                                 System.out.println("enter your password:");
                                 password = scanner.nextLine();
                                 System.out.println("enter your fullName:");
                                 fullName = scanner.nextLine();
-                                System.out.println("enter your nationalCode:");
-                                nationalCode = scanner.nextLong();
+                                System.out.println("enter your numberOfLessonTeach:");
+                                numberOfLessonTeach = scanner.nextInt();
                                 System.out.println("enter your salary:");
                                 salary = scanner.nextLong();
-                                employee = new Employee(id, username, password, fullName, nationalCode, salary);
-                                employeeService.update(employee);
+                                System.out.println("he is 1.HeiatElmi  2.HaghOtadris");
+                                masterLevel = scanner.nextInt();
+                                if (masterLevel == 1) {
+                                    master = new Master(id, username, password, fullName,
+                                            MasterLevel.HEIATELMI, numberOfLessonTeach, salary);
+                                } else {
+                                    master = new Master(id, username, password, fullName,
+                                            MasterLevel.HAGHOTADRIS, numberOfLessonTeach, salary);
+                                }
+                                masterService.update(master);
                                 break;
                             case 7:
                                 scanner.nextLine();
@@ -194,7 +202,7 @@ public class main {
                                 System.out.println("enter master id:");
                                 id = scanner.nextLong();
                                 master = masterService.findById(id);
-                                course = new Course(courseName,unit,master);
+                                course = new Course(courseName, unit, master);
                                 courseService.save(course);
                                 break;
                             case 8:
@@ -259,7 +267,7 @@ public class main {
                                 scoreList.forEach(score1 -> scoreService.findAll(finalStudent.getId()).add(score1));
                                 System.out.println(course);
                                 if (!(scoreList.contains(course))) {
-                                    score = new Score(null,null,course,master,student);
+                                    score = new Score(null, null, course, master, student);
                                     scoreService.save(score);
                                 } else throw new RuntimeException("Already picked! ");
                                 break;
