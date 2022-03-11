@@ -319,8 +319,8 @@ public class main {
                                 break;
                             case 3:
                                 master.setSalary(master.getSalary() + (master.getNumberOfLessonTeach() * 1000000));
-                                System.out.println("salary: " + master.getSalary() +
-                                        "\nnumber of lessen teach:" + master.getNumberOfLessonTeach());
+                                System.out.println("Main salary + side salary : " + master.getSalary() +"\n"+
+                                        "number of lessen teach:" + master.getNumberOfLessonTeach());
                                 break;
                             case 4:
                                 loop = false;
