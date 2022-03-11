@@ -19,8 +19,8 @@ public class StudentService {
         studentRepository.update(student);
     }
 
-    public void findById(Long id) {
-        studentRepository.findById(id);
+    public Student findById(Long id) {
+        return studentRepository.findById(id);
     }
 
     public void findAll() {

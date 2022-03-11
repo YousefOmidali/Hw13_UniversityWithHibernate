@@ -8,13 +8,12 @@ import org.hibernate.SessionFactory;
 public class StudentRepository extends GenericRepositoryImpl<Student, Long> {
     private SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
 
-    public void findById(Long id) {
+    public Student findById(Long id) {
         try (var session = sessionFactory.openSession()) {
             session.beginTransaction();
-
             var a = session.find(Student.class, id);
-            System.out.println(a);
             session.getTransaction().commit();
+            return a;
         }
     }
 

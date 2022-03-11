@@ -40,6 +40,7 @@ public class main {
         Integer masterLevel;
         Boolean isExcellent = false;
         Boolean loop = true;
+        Double scoreOfStudent;
 
         //courseService.findAll();
 
@@ -300,7 +301,18 @@ public class main {
                             case 2:
                                 System.out.println("enter course id: ");
                                 integerId = scanner.nextInt();
-
+                                System.out.println("Enter course id:");
+                                course = courseService.findById(scanner.nextInt());
+                                System.out.println("Enter student id: ");
+                                student = studentService.findById(scanner.nextLong());
+                                System.out.println("Enter score: ");
+                                scoreOfStudent = scanner.nextDouble();
+                                if (0.00d <= scoreOfStudent && scoreOfStudent <= 20.0d) {
+                                    score = new Score(null, scoreOfStudent, course, master, student);
+                                    scoreService.save(score);
+                                } else throw new RuntimeException
+                                        ("Score mist be between 0.00 to 20.00");
+                                System.out.println("Done! ");
                                 break;
                             case 3:
 
