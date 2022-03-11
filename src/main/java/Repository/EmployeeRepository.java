@@ -3,17 +3,18 @@ package Repository;
 import Entity.Employee;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 public class EmployeeRepository extends GenericRepositoryImpl<Employee, Long> {
     private SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
 
 
-    public void findById(Long id) {
+    public Employee findById(Long id) {
         try (var session = sessionFactory.openSession()) {
             session.beginTransaction();
-
             var a = session.find(Employee.class, id);
-            System.out.println(a);
             session.getTransaction().commit();
+            return a;
         }
     }
 
@@ -23,11 +24,11 @@ public class EmployeeRepository extends GenericRepositoryImpl<Employee, Long> {
 //            query.getResultStream().forEach(System.out::println);
 //        }
 //    }
-    public void findAll() {
+    public List<Employee> findAll() {
         var session = sessionFactory.openSession();
         String hql = " FROM Entity.Employee e";
         var query = session.createQuery(hql, Employee.class);
-        query.getResultList().forEach(System.out::println);
+        return query.getResultList();
     }
 
     public Employee login(String username, String password) {

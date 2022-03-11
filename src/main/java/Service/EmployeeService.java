@@ -3,6 +3,8 @@ package Service;
 import Entity.Employee;
 import Repository.EmployeeRepository;
 
+import java.util.List;
+
 public class EmployeeService {
     private EmployeeRepository employeeRepository = new EmployeeRepository();
 
@@ -18,12 +20,12 @@ public class EmployeeService {
         employeeRepository.update(employee);
     }
 
-    public void findById(Long id) {
-        employeeRepository.findById(id);
+    public Employee findById(Long id) {
+        return employeeRepository.findById(id);
     }
 
-    public void findAll() {
-        employeeRepository.findAll();
+    public List<Employee> findAll() {
+        return employeeRepository.findAll();
     }
 
     public Employee login(String username,String password) {

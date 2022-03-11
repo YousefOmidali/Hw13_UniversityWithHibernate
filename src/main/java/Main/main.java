@@ -106,7 +106,8 @@ public class main {
                 if (employee != null) {
                     while (loop) {
                         System.out.println("\t****EmployeeMenu**** \n1.delete student\n2.edit student \n3.delete master" +
-                                "\n4.update master\n5.delete employee\n6.edit master\n7.add an course\n8.edit course \n9.delete course \n10.Exit");
+                                "\n4.update master\n5.delete employee\n6.edit master\n7.add an course\n8.edit course " +
+                                "\n9.delete course \n10.Exit");
                         employeeMenu = scanner.nextInt();
 
                         switch (employeeMenu) {     //EmployeeMenu
