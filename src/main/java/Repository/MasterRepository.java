@@ -1,8 +1,9 @@
 package Repository;
 
-import Entity.Employee;
 import Entity.Master;
 import org.hibernate.SessionFactory;
+
+import java.util.List;
 
 public class MasterRepository extends GenericRepositoryImpl<Master, Long> {
     private SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
@@ -23,11 +24,11 @@ public class MasterRepository extends GenericRepositoryImpl<Master, Long> {
 //            query.getResultStream().forEach(System.out::println);
 //        }
 //    }
-    public void findAll() {
+    public List<Master> findAll() {
         var session = sessionFactory.openSession();
         String hql = " FROM Entity.Master m";
         var query = session.createQuery(hql, Master.class);
-        query.getResultList().forEach(System.out::println);
+        return query.getResultList();
     }
 
 

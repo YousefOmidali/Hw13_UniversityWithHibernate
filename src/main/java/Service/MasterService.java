@@ -4,6 +4,8 @@ import Entity.Employee;
 import Entity.Master;
 import Repository.MasterRepository;
 
+import java.util.List;
+
 public class MasterService {
     private MasterRepository masterRepository = new MasterRepository();
 
@@ -23,10 +25,11 @@ public class MasterService {
         return masterRepository.findById(id);
     }
 
-    public void findAll() {
-        masterRepository.findAll();
+    public List<Master> findAll() {
+        return masterRepository.findAll();
     }
-    public Master login(String username,String password) {
+
+    public Master login(String username, String password) {
         return masterRepository.login(username, password);
     }
 }
