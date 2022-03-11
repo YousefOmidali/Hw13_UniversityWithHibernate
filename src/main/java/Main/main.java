@@ -241,8 +241,9 @@ public class main {
                 student = studentService.login(username, password);
                 if (student != null) {
                     while (loop) {
-                        System.out.println("\t****StudentMenu**** \n1.show Self info\n2.show all courses \n3.pick a course" +
-                                "\n4.pickedCourses \n5.Exit");
+                        System.out.println("\t****StudentMenu**** \n1.show Self info" +
+                                "\n2.show all courses \n3.pick a course" +
+                                "\n4.pickedCourses \n5.Get all my scores \n6.Exit");
                         studentMenu = scanner.nextInt();
 
                         switch (studentMenu) {     //StudentMenu
@@ -276,6 +277,9 @@ public class main {
                                 System.out.println(scoreService.findAll(student.getId()));
                                 break;
                             case 5:
+                                scoreService.findAll(student.getId()).forEach(System.out::println);
+                                break;
+                            case 6:
                                 loop = false;
                                 break;
                         }
@@ -290,8 +294,9 @@ public class main {
                 master = masterService.login(username, password);
                 if (master != null) {
                     while (loop) {
-                        System.out.println("\t****MasterMenu**** \n1.show Self info\n2.show all courses \n3.pick a course" +
-                                "\n4.update ");
+                        System.out.println("\t****MasterMenu**** \n1.show Self info" +
+                                "\n2.add student score \n3.salary Check " +
+                                "\n4.Exit ");
                         masterMenu = scanner.nextInt();
 
                         switch (masterMenu) {     //MasterMenu
@@ -299,8 +304,6 @@ public class main {
                                 System.out.println(master);
                                 break;
                             case 2:
-                                System.out.println("enter course id: ");
-                                integerId = scanner.nextInt();
                                 System.out.println("Enter course id:");
                                 course = courseService.findById(scanner.nextInt());
                                 System.out.println("Enter student id: ");
@@ -315,12 +318,11 @@ public class main {
                                 System.out.println("Done! ");
                                 break;
                             case 3:
-
+                                master.setSalary(master.getSalary() + (master.getNumberOfLessonTeach() * 1000000));
+                                System.out.println("salary: " + master.getSalary() +
+                                        "\nnumber of lessen teach:" + master.getNumberOfLessonTeach());
                                 break;
                             case 4:
-
-                                break;
-                            case 5:
                                 loop = false;
                                 break;
                         }
