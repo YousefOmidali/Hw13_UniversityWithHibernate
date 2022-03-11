@@ -4,6 +4,8 @@ import Entity.Employee;
 import Entity.Student;
 import Repository.StudentRepository;
 
+import java.util.List;
+
 public class StudentService {
     private StudentRepository studentRepository = new StudentRepository();
 
@@ -23,8 +25,8 @@ public class StudentService {
         return studentRepository.findById(id);
     }
 
-    public void findAll() {
-        studentRepository.findAll();
+    public List<Student> findAll() {
+        return studentRepository.findAll();
     }
 
     public void status(Long id) {

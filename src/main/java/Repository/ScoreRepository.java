@@ -9,12 +9,13 @@ import java.util.List;
 public class ScoreRepository extends GenericRepositoryImpl {
     private SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
 
-    public void findById(Long id) {
+    public Score findById(Long id) {
         try (var session = sessionFactory.openSession()) {
             session.beginTransaction();
             var a = session.find(Score.class, id);
             System.out.println(a);
             session.getTransaction().commit();
+            return a;
         }
     }
 

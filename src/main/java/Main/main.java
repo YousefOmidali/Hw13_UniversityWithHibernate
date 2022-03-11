@@ -244,7 +244,7 @@ public class main {
                     while (loop) {
                         System.out.println("\t****StudentMenu**** \n1.show Self info" +
                                 "\n2.show all courses \n3.pick a course" +
-                                "\n4.pickedCourses \n5.Get all my scores \n6.Exit");
+                                "\n4.pickedCourses \n5.Get all my scores \n6.My Status\n7.Exit");
                         studentMenu = scanner.nextInt();
 
                         switch (studentMenu) {     //StudentMenu
@@ -281,6 +281,9 @@ public class main {
                                 scoreService.findAll(student.getId()).forEach(System.out::println);
                                 break;
                             case 6:
+                                studentService.status(student.getId());
+                                break;
+                            case 7:
                                 loop = false;
                                 break;
                         }

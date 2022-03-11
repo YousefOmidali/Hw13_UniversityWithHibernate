@@ -4,6 +4,8 @@ import Entity.Master;
 import Entity.Student;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 
 public class StudentRepository extends GenericRepositoryImpl<Student, Long> {
     private SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
@@ -23,11 +25,11 @@ public class StudentRepository extends GenericRepositoryImpl<Student, Long> {
 //            query.getResultStream().forEach(System.out::println);
 //        }
 //    }
-    public void findAll() {
+    public List<Student> findAll() {
         var session = sessionFactory.openSession();
         String hql = " FROM Entity.Student c";
-        var query = session.createQuery(hql, String.class);
-        query.getResultList().forEach(System.out::println);
+        var query = session.createQuery(hql, Student.class);
+        return query.getResultList();
     }
 
 
