@@ -4,12 +4,13 @@ import Entity.Score;
 import Entity.Student;
 import org.hibernate.SessionFactory;
 
+import javax.print.attribute.IntegerSyntax;
 import java.util.List;
 
 public class ScoreRepository extends GenericRepositoryImpl {
     private SessionFactory sessionFactory = SessionFactoryConnection.getInstance();
 
-    public Score findById(Long id) {
+    public Score findById(Integer id) {
         try (var session = sessionFactory.openSession()) {
             session.beginTransaction();
             var a = session.find(Score.class, id);
