@@ -20,20 +20,20 @@ class EmployeeRepositoryTest {
         employeeRepository = new EmployeeRepository();
     }
 
-    @AfterEach
-    public void afterEach() throws SQLException {
-        var sessionFactory = SessionFactoryConnection.getInstance();
-        try (var session = sessionFactory.openSession()) {
-            var transaction = session.beginTransaction();
-            try {
-                session.createQuery("DELETE FROM Entity.Employee").executeUpdate();
-                transaction.commit();
-            } catch (Exception e) {
-                transaction.rollback();
-                throw e;
-            }
-        }
-    }
+//    @AfterEach
+//    public void afterEach() throws SQLException {
+//        var sessionFactory = SessionFactoryConnection.getInstance();
+//        try (var session = sessionFactory.openSession()) {
+//            var transaction = session.beginTransaction();
+//            try {
+//                session.createQuery("DELETE FROM Entity.Employee").executeUpdate();
+//                transaction.commit();
+//            } catch (Exception e) {
+//                transaction.rollback();
+//                throw e;
+//            }
+//        }
+//    }
 
     @Test
     void save() {

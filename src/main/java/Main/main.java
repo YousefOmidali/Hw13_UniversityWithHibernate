@@ -1,7 +1,6 @@
 package Main;
 
 import Entity.*;
-import Repository.SessionFactoryConnection;
 import Service.*;
 
 import java.util.*;
@@ -35,6 +34,7 @@ public class main {
         String courseName;
         Long nationalCode = 0L;
         Long salary = 1L;
+        Long masterId =0L ;
         Long studentNumber;
         Integer unit;
         Integer masterLevel;
@@ -42,10 +42,14 @@ public class main {
         Boolean loop = true;
         Double scoreOfStudent;
 
-        //courseService.findAll();
 
         System.out.println("1.SignUp \n2.Login");
-        loginMenu = scanner.nextInt();
+        try {
+            loginMenu = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Wrong Input");
+        }
+
         if (loginMenu == 1) {
             System.out.println("What are you? \n1.Employee \n2.Student \n3.Master ");
             whatAreYou = scanner.nextInt();
@@ -58,7 +62,11 @@ public class main {
                 System.out.println("enter your fullName:");
                 fullName = scanner.nextLine();
                 System.out.println("enter your nationalCode:");
-                nationalCode = scanner.nextLong();
+                try {
+                    nationalCode = scanner.nextLong();
+                } catch (InputMismatchException e) {
+                    System.out.println("Wrong Input");
+                }
                 employee = new Employee(username, password, fullName, nationalCode, 6000000L);
                 employeeService.save(employee);
                 System.out.println("done! ");
@@ -72,10 +80,15 @@ public class main {
                 System.out.println("enter your fullName:");
                 fullName = scanner.nextLine();
                 System.out.println("enter your studentNumber:");
-                studentNumber = scanner.nextLong();
-                student = new Student(username, password, fullName, studentNumber, isExcellent);
-                studentService.save(student);
-                System.out.println("done! ");
+                try {
+                    studentNumber = scanner.nextLong();
+                    student = new Student(username, password, fullName, studentNumber, isExcellent);
+                    studentService.save(student);
+                    System.out.println("done! ");
+                } catch (InputMismatchException e) {
+                    System.out.println("Wrong Input");
+                }
+
 
             } else if (whatAreYou == 3) {
                 scanner.nextLine();
@@ -85,7 +98,6 @@ public class main {
                 password = scanner.nextLine();
                 System.out.println("enter your fullName:");
                 fullName = scanner.nextLine();
-                System.out.println("enter your studentNumber:");
                 master = new Master(username, password, fullName, MasterLevel.HAGHOTADRIS,
                         0, 7000000L, new HashSet<Course>());
                 masterService.save(master);
@@ -95,7 +107,11 @@ public class main {
         }
         if (loginMenu == 2) {
             System.out.println("What are you? \n1.Employee \n2.Student \n3.Master ");
-            whatAreYou = scanner.nextInt();
+            try {
+                whatAreYou = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Wrong Input");
+            }
             if (whatAreYou == 1) {           //Employee
                 scanner.nextLine();
                 System.out.println("enter your username:");
@@ -105,126 +121,169 @@ public class main {
                 employee = employeeService.login(username, password);
                 if (employee != null) {
                     while (loop) {
-                        System.out.println("\t****EmployeeMenu**** \n1.delete student\n2.edit student \n3.delete master" +
-                                "\n4.update master\n5.delete employee\n6.edit master\n7.add an course\n8.edit course " +
+                        System.out.println("\t****EmployeeMenu**** \n1.delete student\n2.edit student " +
+                                "\n3.delete master" +
+                                "\n4.update master\n5.delete employee\n6.edit master\n7.add an course" +
+                                "\n8.edit course " +
                                 "\n9.delete course \n10.Exit");
-                        employeeMenu = scanner.nextInt();
+                        try {
+                            employeeMenu = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Wrong Input");
+                        }
 
                         switch (employeeMenu) {     //EmployeeMenu
                             case 1:
                                 System.out.println("enter student id");
-                                studentService.deleteById(scanner.nextLong());
+                                try {
+                                    studentService.deleteById(scanner.nextLong());
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Wrong Input");
+                                }
                                 break;
                             case 2:
                                 scanner.nextLine();
-                                System.out.println("enter student id:");
-                                id = scanner.nextLong();
-                                System.out.println("enter your username:");
-                                username = scanner.nextLine();
-                                System.out.println("enter your password:");
-                                password = scanner.nextLine();
-                                System.out.println("enter your fullName:");
-                                fullName = scanner.nextLine();
-                                System.out.println("enter your studentNumber:");
-                                studentNumber = scanner.nextLong();
-                                System.out.println("status? 1.YES   2.No");
-                                status = scanner.nextInt();
-                                if (status == 1) {
-                                    student = new Student(id, username, password, fullName, studentNumber, true);
-                                } else
-                                    student = new Student(id, username, password, fullName, studentNumber, false);
-                                studentService.update(student);
+                                try {
+                                    System.out.println("enter student id:");
+                                    id = scanner.nextLong();
+                                    System.out.println("enter your username:");
+                                    username = scanner.nextLine();
+                                    System.out.println("enter your password:");
+                                    password = scanner.nextLine();
+                                    System.out.println("enter your fullName:");
+                                    fullName = scanner.nextLine();
+                                    System.out.println("enter your studentNumber:");
+                                    studentNumber = scanner.nextLong();
+                                    System.out.println("status? 1.YES   2.No");
+                                    status = scanner.nextInt();
+                                    if (status == 1) {
+                                        student = new Student(id, username, password, fullName, studentNumber, true);
+                                    } else
+                                        student = new Student(id, username, password, fullName, studentNumber, false);
+                                    studentService.update(student);
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Wrong Input");
+                                }
                                 break;
                             case 3:
                                 scanner.nextLine();
                                 System.out.println("enter master id");
-                                masterService.deleteById(scanner.nextLong());
+                                try {
+                                    masterService.deleteById(scanner.nextLong());
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Wrong Input");
+                                }
                                 break;
                             case 4:
                                 scanner.nextLine();
-                                System.out.println("enter master id");
+
                                 id = scanner.nextLong();
-                                master = masterService.findById(id);
-                                System.out.println("enter your username:");
-                                username = scanner.nextLine();
-                                System.out.println("enter your password:");
-                                password = scanner.nextLine();
-                                System.out.println("enter your fullName:");
-                                fullName = scanner.nextLine();
-                                System.out.println("enter number of lesson teach:");
-                                numberOfLessonTeach = scanner.nextInt();
-                                System.out.println("salary:");
-                                salary = scanner.nextLong();
-                                System.out.println("Master level! 1.HeiatElmi 2.Haghotadris");
-                                status = scanner.nextInt();
-                                if (status == 1) {
-                                    master = new Master(id, username, password, fullName,
-                                            MasterLevel.HEIATELMI, numberOfLessonTeach, salary);
-                                } else
-                                    master = new Master(id, username, password, fullName,
-                                            MasterLevel.HAGHOTADRIS, numberOfLessonTeach, salary);
-                                masterService.update(master);
+                                try {
+                                    System.out.println("enter master id");
+                                    System.out.println("enter your username:");
+                                    username = scanner.nextLine();
+                                    System.out.println("enter your password:");
+                                    password = scanner.nextLine();
+                                    System.out.println("enter your fullName:");
+                                    fullName = scanner.nextLine();
+                                    System.out.println("enter number of lesson teach:");
+                                    numberOfLessonTeach = scanner.nextInt();
+                                    System.out.println("salary:");
+                                    salary = scanner.nextLong();
+                                    System.out.println("Master level! 1.HeiatElmi 2.Haghotadris");
+                                    status = scanner.nextInt();
+                                    if (status == 1) {
+                                        master = new Master(id, username, password, fullName,
+                                                MasterLevel.HEIATELMI, numberOfLessonTeach, salary);
+                                    } else
+                                        master = new Master(id, username, password, fullName,
+                                                MasterLevel.HAGHOTADRIS, numberOfLessonTeach, salary);
+                                    masterService.update(master);
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Wrong Input");
+                                }
                                 break;
                             case 5:
                                 scanner.nextLine();
                                 System.out.println("enter employee id");
-                                employeeService.deleteById(scanner.nextLong());
+                                try {
+                                    employeeService.deleteById(scanner.nextLong());
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Wrong Input");
+                                }
                                 break;
                             case 6:
                                 scanner.nextLine();
-                                System.out.println("enter master id");
-                                id = scanner.nextLong();
-                                System.out.println("enter your username:");
-                                username = scanner.nextLine();
-                                System.out.println("enter your password:");
-                                password = scanner.nextLine();
-                                System.out.println("enter your fullName:");
-                                fullName = scanner.nextLine();
-                                System.out.println("enter your numberOfLessonTeach:");
-                                numberOfLessonTeach = scanner.nextInt();
-                                System.out.println("enter your salary:");
-                                salary = scanner.nextLong();
-                                System.out.println("he is 1.HeiatElmi  2.HaghOtadris");
-                                masterLevel = scanner.nextInt();
-                                if (masterLevel == 1) {
-                                    master = new Master(id, username, password, fullName,
-                                            MasterLevel.HEIATELMI, numberOfLessonTeach, salary);
-                                } else {
-                                    master = new Master(id, username, password, fullName,
-                                            MasterLevel.HAGHOTADRIS, numberOfLessonTeach, salary);
+                                try {
+                                    System.out.println("enter master id");
+                                    id = scanner.nextLong();
+                                    System.out.println("enter your username:");
+                                    username = scanner.nextLine();
+                                    System.out.println("enter your password:");
+                                    password = scanner.nextLine();
+                                    System.out.println("enter your fullName:");
+                                    fullName = scanner.nextLine();
+                                    System.out.println("enter your numberOfLessonTeach:");
+                                    numberOfLessonTeach = scanner.nextInt();
+                                    System.out.println("enter your salary:");
+                                    salary = scanner.nextLong();
+                                    System.out.println("he is 1.HeiatElmi  2.HaghOtadris");
+                                    masterLevel = scanner.nextInt();
+                                    if (masterLevel == 1) {
+                                        master = new Master(id, username, password, fullName,
+                                                MasterLevel.HEIATELMI, numberOfLessonTeach, salary);
+                                    } else {
+                                        master = new Master(id, username, password, fullName,
+                                                MasterLevel.HAGHOTADRIS, numberOfLessonTeach, salary);
+                                    }
+                                    masterService.update(master);
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Wrong Input");
                                 }
-                                masterService.update(master);
                                 break;
                             case 7:
-                                scanner.nextLine();
-                                System.out.println("Enter course name:");
-                                courseName = scanner.nextLine();
-                                System.out.println("enter unit");
-                                unit = scanner.nextInt();
-                                System.out.println("enter master id:");
-                                id = scanner.nextLong();
-                                master = masterService.findById(id);
-                                course = new Course(courseName, unit, master);
-                                courseService.save(course);
+                                try {
+                                    scanner.nextLine();
+                                    System.out.println("Enter course name:");
+                                    courseName = scanner.nextLine();
+                                    System.out.println("enter unit");
+                                    unit = scanner.nextInt();
+                                    System.out.println("enter master id:");
+                                    id = scanner.nextLong();
+                                    master = masterService.findById(id);
+                                    course = new Course(courseName, unit, master);
+                                    courseService.save(course);
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Wrong Input");
+                                }
                                 break;
                             case 8:
                                 scanner.nextLine();
-                                System.out.println("enter course id: ");
-                                id = scanner.nextLong();
-                                System.out.println("Enter course name:");
-                                courseName = scanner.nextLine();
-                                System.out.println("enter unit");
-                                unit = scanner.nextInt();
-                                System.out.println("enter master id:");
-                                id = scanner.nextLong();
-                                master = masterService.findById(id);
-                                course = new Course(courseName, unit, master);
-                                courseService.update(course);
+                                try {
+                                    System.out.println("enter course id: ");
+                                    id = scanner.nextLong();
+                                    System.out.println("Enter course new name:");
+                                    courseName = scanner.nextLine();
+                                    System.out.println("enter new unit");
+                                    unit = scanner.nextInt();
+                                    System.out.println("enter new master id:");
+                                    id = scanner.nextLong();
+                                    master = masterService.findById(id);
+                                    course = new Course(courseName, unit, master);
+                                    courseService.update(course);
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Wrong Input");
+                                }
                                 break;
                             case 9:
                                 scanner.nextLine();
                                 System.out.println("enter course id: ");
-                                courseService.deleteById(scanner.nextInt());
+                                try {
+                                    courseService.deleteById(scanner.nextInt());
+
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Wrong Input");
+                                }
                                 break;
                             case 10:
                                 loop = false;
@@ -245,7 +304,12 @@ public class main {
                         System.out.println("\t****StudentMenu**** \n1.show Self info" +
                                 "\n2.show all courses \n3.pick a course" +
                                 "\n4.pickedCourses \n5.Get all my scores \n6.My Status\n7.Exit");
-                        studentMenu = scanner.nextInt();
+                        try {
+                            studentMenu = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Wrong Input");
+                        }
+
 
                         switch (studentMenu) {     //StudentMenu
                             case 1:
@@ -257,22 +321,33 @@ public class main {
                             case 3:
                                 scanner.nextLine();
                                 System.out.println("enter master id: ");
-                                Long masterId = scanner.nextLong();
-                                master = masterService.findById(masterId);
-                                master.setUserName("******");
-                                master.setPassword("******");
-                                master.setSalary(0L);
-                                System.out.println("enter course id:");
-                                Integer idWithInt = scanner.nextInt();
-                                course = courseService.findById(idWithInt);
-                                List<Score> scoreList = new ArrayList<>();
-                                Student finalStudent = student;
-                                scoreList.forEach(score1 -> scoreService.findAll(finalStudent.getId()).add(score1));
-                                System.out.println(course);
-                                if (!(scoreList.contains(course))) {
+                                try {
+                                    masterId = scanner.nextLong();
+                                    master = masterService.findById(masterId);
+                                    master.setUserName("******");
+                                    master.setPassword("******");
+                                    master.setSalary(0L);
+                                    System.out.println("enter course id:");
+                                    Integer idWithInt = scanner.nextInt();
+                                    course = courseService.findById(idWithInt);
+                                    List<Score> scoreList;
+                                    Student finalStudent = student;
+
+//                                    scoreList.forEach(
+//                                            score1 -> scoreService.findAll(finalStudent.getId()).add(score1));
                                     score = new Score(null, null, course, master, student);
-                                    scoreService.save(score);
-                                } else throw new RuntimeException("Already picked! ");
+                                    scoreList = scoreService.findAll(student.getId());
+                                    Course finalCourse = course;
+                                    scoreList.stream().filter(score1 -> score1.getCourse().getId().equals(finalCourse.getId()));
+
+                                    if (scoreList.isEmpty()) {
+                                        scoreService.save(score);
+                                        System.out.println("picked: "+course);
+                                    } else System.out.println("Already picked!");
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Wrong Input");
+                                }
+
                                 break;
                             case 4:
                                 System.out.println(scoreService.findAll(student.getId()));
@@ -323,7 +398,7 @@ public class main {
                                 break;
                             case 3:
                                 master.setSalary(master.getSalary() + (master.getNumberOfLessonTeach() * 1000000));
-                                System.out.println("Main salary + side salary : " + master.getSalary() +"\n"+
+                                System.out.println("Main salary + side salary : " + master.getSalary() + "\n" +
                                         "number of lessen teach:" + master.getNumberOfLessonTeach());
                                 break;
                             case 4:

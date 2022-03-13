@@ -33,5 +33,4 @@ public class Score {
     @ManyToOne
     private Student student;
 
-
 }
